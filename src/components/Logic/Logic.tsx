@@ -1,12 +1,12 @@
-import React from "react";
-import AddForm from "../AddForm/AddForm";
-import AllTodos from "../AllTodo/AllTodo";
+import React from 'react';
+import AddForm from '../AddForm/AddForm';
+import AllTodos from '../AllTodo/AllTodo';
 
 const Logic = () => {
     return (
         <div>
             <div>
-            <AddForm/>
+                <AddForm/>
             </div>
             <div>
                 <AllTodos/>
