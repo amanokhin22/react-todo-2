@@ -1,0 +1,22 @@
+
+.deleteButton {
+  background-color: red;
+  cursor: pointer;
+  border-radius: 10px;
+  height: 45px;
+  width: 170px;
+}
+
+.ul {
+  list-style-type: none;
+}
+
+.li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  gap: 0.5rem;
+  cursor: pointer;
+  width: 45px;
+}
