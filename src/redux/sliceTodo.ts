@@ -10,16 +10,10 @@ export interface Todo {
 
 export interface TodoState {
     todoList: Todo[];
-    loading: boolean;
 }
 
 const initialState: TodoState = {
-    todoList: [{
-        todo: 'string',
-        id: 0,
-        completed: true
-    }],
-    loading: false
+    todoList: [],
 }
 
 export const todoSlice = createSlice({
@@ -29,17 +23,25 @@ export const todoSlice = createSlice({
         setTodoList(state, action: PayloadAction<Todo[]>) {
             state.todoList = action.payload
         },
-        toggleComplete(state, action: PayloadAction<Todo[]>) {
-            const toggledTodo = state.todoList.find(todo => todo.id === action.payload.id)
+        addNewTodo(state, action: PayloadAction<string>) {
+            const newTodo: Todo = {
+                todo: action.payload,
+                id:  state.todoList[state.todoList.length-1]?.id + 1, //Это не для дебилов //Date.now(), это еще один способ
+                completed: false
+            }
+             state.todoList.push(newTodo)
+        },
+        toggleComplete(state, action: PayloadAction<Todo>) {
+            const toggledTodo = state.todoList.find(todo => todo.id === action.payload.id)!
             toggledTodo.completed = !toggledTodo.completed
         },
-        deleteTodoList(state, action: PayloadAction<Todo[]>) {
+        deleteTodoList(state, action: PayloadAction<Todo>) {
             state.todoList = state.todoList.filter(todo => todo.id !== action.payload.id)
         },
 
     },
 })
 
-export const {setTodoList, deleteTodoList, toggleComplete} = todoSlice.actions
+export const {addNewTodo, deleteTodoList, toggleComplete} = todoSlice.actions
 
 export default todoSlice.reducer

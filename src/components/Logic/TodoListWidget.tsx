@@ -2,23 +2,23 @@ import React from 'react';
 import AddTodo from '../AddForm/AddTodo';
 import TodoList from '../AllTodo/TodoList';
 import {AddTodoDTO} from "../AddForm/AddTodo";
-import {Todo} from "../../redux/sliceTodo";
-import {useSelector} from "react-redux";
+import {addNewTodo, deleteTodoList, Todo, toggleComplete} from "../../redux/sliceTodo";
 import {useAppDispatch} from "../../redux/store";
-import {selectTodoList} from "../../redux/selectors";
 
 
 const Wrapper = () => {
 
-    const todoList = useSelector(selectTodoList);
     const dispatch = useAppDispatch();
 
     const handleAddFormAddTodo = async (data: AddTodoDTO) => {
-       await dispatch( (data))
+       await dispatch(addNewTodo(data.todoText))
     }
 
     const handleAllTodosDelete = async (todo: Todo) => {
-       await dispatch( (todo))
+       await dispatch(deleteTodoList(todo))
+    }
+    const handleToggleComplete = async (todo: Todo) => {
+       await dispatch(toggleComplete(todo))
     }
 
     return (
@@ -27,7 +27,7 @@ const Wrapper = () => {
                 <AddTodo onAddTodo={handleAddFormAddTodo}/>
             </div>
             <div>
-                <TodoList todoList={todoList} onDelete={handleAllTodosDelete}/>
+                <TodoList onDelete={handleAllTodosDelete} onToggle={handleToggleComplete}/>
             </div>
 
         </div>

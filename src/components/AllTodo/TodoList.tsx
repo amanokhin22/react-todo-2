@@ -5,14 +5,21 @@ import {useSelector} from "react-redux";
 import {selectTodoList} from "../../redux/selectors";
 
 
+
+//Типизировать
+
+
 const TodoList = () => {
-const todoList = useSelector(() => selectTodoList);
+    const todoList = useSelector(selectTodoList);
 
     return (
         <ul className={styles.ul}>
             {
-                todoList.map((todo: { id: React.Key | null | undefined; }) => <li key={todo.id} className={styles.li}>
+                todoList.map((todo) => <li key={todo.id} className={styles.li}>
                         <input value={'text'} type="checkbox"/>
+                        {
+                            todo.todo
+                        }
                         <Button className={styles.deleteButton}>
                             Delete
                         </Button>
