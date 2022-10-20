@@ -1,19 +1,17 @@
 import React from 'react';
 import styles from './AllTodo.module.scss'
 import {Button} from "react-bootstrap";
-import {Todo} from "../../redux/sliceTodo";
+import {useSelector} from "react-redux";
+import {selectTodoList} from "../../redux/selectors";
 
-export interface MainPropsType {
-    todoList: Todo[];
-    onToggle: (todo: Todo) => void;
-    onDelete: (todo: Todo) => void;
-}
 
-const AllTodos: React.FC<MainPropsType> = ({todoList}) => {
+const TodoList = () => {
+const todoList = useSelector(() => selectTodoList);
+
     return (
         <ul className={styles.ul}>
             {
-                todoList.map((todo) => <li key={todo.id} className={styles.li}>
+                todoList.map((todo: { id: React.Key | null | undefined; }) => <li key={todo.id} className={styles.li}>
                         <input value={'text'} type="checkbox"/>
                         <Button className={styles.deleteButton}>
                             Delete
@@ -24,4 +22,4 @@ const AllTodos: React.FC<MainPropsType> = ({todoList}) => {
     )
 }
 
-export default AllTodos
+export default TodoList
