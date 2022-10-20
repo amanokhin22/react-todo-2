@@ -5,20 +5,20 @@ import {AddTodoDTO} from "../AddForm/AddTodo";
 import {Todo} from "../../redux/sliceTodo";
 import {useSelector} from "react-redux";
 import {useAppDispatch} from "../../redux/store";
-import {selectSortedTodoList} from "../../redux/selectors";
+import {selectTodoList} from "../../redux/selectors";
 
 
 const Wrapper = () => {
 
-    const todoList = useSelector(selectSortedTodoList);
+    const todoList = useSelector(selectTodoList);
     const dispatch = useAppDispatch();
 
     const handleAddFormAddTodo = async (data: AddTodoDTO) => {
        await dispatch( (data))
     }
 
-    const handleAllTodosDelete = (todo: Todo) => {
-        console.log(todo)
+    const handleAllTodosDelete = async (todo: Todo) => {
+       await dispatch( (todo))
     }
 
     return (

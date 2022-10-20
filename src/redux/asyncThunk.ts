@@ -1,9 +1,8 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {Todo} from "./sliceTodo";
-import {AddTodoDTO} from "../components/AddForm/AddTodo";
-import {apiTodo} from "../API/api";
 
 
+//const apiTodo =
 
 export const fetchTodo = createAsyncThunk(
     'todo/fetchTodos',
@@ -18,18 +17,18 @@ export const deleteTodo = createAsyncThunk(
     }
 );
 
-export const postTodo = createAsyncThunk(
-    'todo/postTodo',
-    async (data: AddTodoDTO, {dispatch}) => {
-        await apiTodo.create(data);
-        await dispatch(fetchTodo());
-    }
-);
-
-export const putTodo = createAsyncThunk(
-    'todo/putTodo',
-    async (todo: Todo, {dispatch}) => {
-        await apiTodo.put(todo);
-        await dispatch(fetchTodo());
-    }
-);
+// export const postTodo = createAsyncThunk(
+//     'todo/postTodo',
+//     async (data: AddTodoDTO, {dispatch}) => {
+//         await apiTodo.create(data);
+//         await dispatch(fetchTodo());
+//     }
+// );
+//
+// export const putTodo = createAsyncThunk(
+//     'todo/putTodo',
+//     async (todo: Todo, {dispatch}) => {
+//         await apiTodo.put(todo);
+//         await dispatch(fetchTodo());
+//     }
+// );
