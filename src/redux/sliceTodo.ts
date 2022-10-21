@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from "@reduxjs/toolkit";
 import {deleteTodo, fetchNewTodo, toggleTodo} from "./asyncThunk";
+import {getTodoListFromLS} from "../utils/getTodoListFromLS";
 
 
 export interface Todo {
@@ -14,7 +15,7 @@ export interface TodoState {
 }
 
 const initialState: TodoState = {
-    todoList: [],
+    todoList: getTodoListFromLS(),
 }
 
 export const todoSlice = createSlice({
