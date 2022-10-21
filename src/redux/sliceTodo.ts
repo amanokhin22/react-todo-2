@@ -28,7 +28,7 @@ export const todoSlice = createSlice({
         addNewTodo(state, action: PayloadAction<string>) {
             const newTodo: Todo = {
                 todo: action.payload,
-                id: Date.now(),  //state.todoList[state.todoList.length-1]?.id + 1, //Это не для дебилов //Date.now(), это еще один способ
+                id: (state.todoList[state.todoList.length-1]?.id || 0) + 1,  //Это не для дебилов //Date.now(), это еще один способ
                 completed: false
             }
              state.todoList.push(newTodo)

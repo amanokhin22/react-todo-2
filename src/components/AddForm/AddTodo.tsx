@@ -30,7 +30,7 @@ export interface AddTodoDTO {
                 </textarea>
                 </label>
             </div>
-            <Button disabled={todoText.length < 3} onClick={handleClick} className={styles.add}>
+            <Button disabled={todoText.length <= 3} onClick={handleClick} className={styles.add}>
                 Add Todo
             </Button>
 

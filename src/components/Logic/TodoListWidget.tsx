@@ -8,7 +8,7 @@ import {useSelector} from "react-redux";
 import {selectTodoList} from "../../redux/selectors";
 
 
-const Wrapper: React.FC = () => {
+const TodoListWidget: React.FC = () => {
 
     const todoList = useSelector(selectTodoList);
     const dispatch = useAppDispatch();
@@ -47,4 +47,4 @@ const Wrapper: React.FC = () => {
     )
 }
 
-export default Wrapper
+export default TodoListWidget
