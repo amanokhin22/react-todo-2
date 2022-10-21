@@ -12,11 +12,12 @@ export interface MainPropsType {
 
 const TodoList: React.FC<MainPropsType> = ({todoList, onDelete, onToggle}) => {
 
+
     return (
         <ul className={styles.ul}>
             {
                 todoList.map((todo) => <li key={todo.id} className={styles.li}>
-                        <input onClick={() => onToggle(todo)} value={'text'} type="checkbox" checked={todo.completed}
+                        <input onClick={() => onToggle(todo)} value={'text'} type="checkbox"
                                className={styles.checkbox}/>
                         <span>
                             {

@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from "@reduxjs/toolkit";
+import {deleteTodo, fetchNewTodo, toggleTodo} from "./asyncThunk";
 
 
 export interface Todo {
@@ -38,7 +39,29 @@ export const todoSlice = createSlice({
         deleteTodoList(state, action: PayloadAction<Todo>) {
             state.todoList = state.todoList.filter(todo => todo.id !== action.payload.id)
         },
+    },
+    extraReducers: (builder) => {
 
+        // builder.addCase(fetchNewTodo.fulfilled, (state, action) => {
+        //     state.todoList = action.payload;//Если всё норм пришло
+        // });
+        // builder.addCase(fetchNewTodo.rejected, (state) => {
+        //     state.todoList = [];// Если ошибки пришли
+        // });
+        //
+        // builder.addCase(deleteTodo.fulfilled, (state) => {
+        //
+        // });
+        // builder.addCase(deleteTodo.rejected, (state) => {
+        //     state.todoList = [];
+        // });
+        //
+        // builder.addCase(toggleTodo.fulfilled, (state) => {
+        //
+        // });
+        // builder.addCase(toggleTodo.rejected, (state) => {
+        //     state.todoList = [];
+        // });
     },
 })
 

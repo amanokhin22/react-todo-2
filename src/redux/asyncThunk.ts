@@ -1,34 +1,25 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {Todo} from "./sliceTodo";
+import {addNewTodo, Todo} from "./sliceTodo";
 
 
-//const apiTodo =
-
-export const fetchTodo = createAsyncThunk(
-    'todo/fetchTodos',
-    async () => await apiTodo.getAll()
+export const fetchNewTodo = createAsyncThunk<Todo>(
+    'users/fetchByIdStatus',
+    async () => {
+        const response = await addNewTodo<Todo>()
+        return response.data
+    }
 );
 
 export const deleteTodo = createAsyncThunk(
     'todo/deleteTodo',
-    async (todo: Todo, {dispatch}) => {
-        await apiTodo.delete(todo);
-        await dispatch(fetchTodo());
+    async (_todo: Todo, {dispatch}) => {
+        await dispatch(fetchNewTodo());
     }
 );
 
-// export const postTodo = createAsyncThunk(
-//     'todo/postTodo',
-//     async (data: AddTodoDTO, {dispatch}) => {
-//         await apiTodo.create(data);
-//         await dispatch(fetchTodo());
-//     }
-// );
-//
-// export const putTodo = createAsyncThunk(
-//     'todo/putTodo',
-//     async (todo: Todo, {dispatch}) => {
-//         await apiTodo.put(todo);
-//         await dispatch(fetchTodo());
-//     }
-// );
+export const toggleTodo = createAsyncThunk(
+    'todo/putTodo',
+    async (todo: Todo, {dispatch}) => {
+        await dispatch(fetchNewTodo());
+    }
+);

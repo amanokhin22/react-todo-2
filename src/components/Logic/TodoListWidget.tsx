@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import AddTodo from '../AddForm/AddTodo';
 import TodoList from '../AllTodo/TodoList';
 import {AddTodoDTO} from "../AddForm/AddTodo";
@@ -23,6 +23,16 @@ const Wrapper: React.FC = () => {
     const handleToggleComplete = async (todo: Todo) => {
        await dispatch(toggleComplete(todo))
     }
+
+    const isMounted = useRef(false);
+
+    useEffect(() => {
+        if (isMounted.current) {
+            const json = JSON.stringify(todoList);
+            localStorage.setItem('todos', json);
+        }
+        isMounted.current = true;
+    }, [todoList]);
 
     return (
         <div>
