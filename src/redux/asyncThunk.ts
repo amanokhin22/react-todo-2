@@ -1,25 +1,44 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {addNewTodo, Todo} from "./sliceTodo";
+import {addNewTodo, deleteTodoList, setTodoList, Todo, toggleComplete} from "./sliceTodo";
+import {selectTodoList} from "./selectors";
+import {RootState} from "./store";
 
 
-export const fetchNewTodo = createAsyncThunk<Todo>(
-    'users/fetchByIdStatus',
-    async () => {
-        const response = await addNewTodo<Todo>()
-        return response.data
+export const createTodoThunk = createAsyncThunk(
+    'todo/createTodo',
+    async (todoText: string, {dispatch, getState}) => {
+        await dispatch(addNewTodo(todoText));
+        const todoList = selectTodoList(getState() as RootState);
+        const json = JSON.stringify(todoList);
+        localStorage.setItem('todos', json);
     }
 );
 
-export const deleteTodo = createAsyncThunk(
+export const deleteTodoThunk = createAsyncThunk(
     'todo/deleteTodo',
-    async (_todo: Todo, {dispatch}) => {
-        await dispatch(fetchNewTodo());
+    async (todo: Todo, {dispatch, getState}) => {
+        await dispatch(deleteTodoList(todo));
+        const todoList = selectTodoList(getState() as RootState);
+        const json = JSON.stringify(todoList);
+        localStorage.setItem('todos', json);
     }
 );
 
-export const toggleTodo = createAsyncThunk(
-    'todo/putTodo',
-    async (todo: Todo, {dispatch}) => {
-        await dispatch(fetchNewTodo());
+export const toggleTodoThunk = createAsyncThunk(
+    'todo/toggleTodo',
+    async (todo: Todo, {dispatch, getState}) => {
+        await dispatch(toggleComplete(todo));
+        const todoList = selectTodoList(getState() as RootState);
+        const json = JSON.stringify(todoList);
+        localStorage.setItem('todos', json);
+    }
+);
+
+export const initTodoListThunk = createAsyncThunk(
+    'todo/initTodo',
+    async (_, {dispatch}) => {
+        const data = localStorage.getItem('todos');
+        const todoList: Todo[] = data ? JSON.parse(data) : []
+        await dispatch(setTodoList(todoList));
     }
 );
