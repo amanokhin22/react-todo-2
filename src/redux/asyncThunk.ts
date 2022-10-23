@@ -10,8 +10,7 @@ export const createTodoThunk = createAsyncThunk(
     async (todoText: string, {dispatch, getState}) => {
         await dispatch(addNewTodo(todoText));
         const todoList = selectTodoList(getState() as RootState);
-        const json = JSON.stringify(todoList);
-        localStorage.setItem('todos', json);
+        apiTodo.saveAll(todoList)
     }
 );
 
@@ -19,7 +18,8 @@ export const deleteTodoThunk = createAsyncThunk(
     'todo/deleteTodo',
     async (todo: Todo, {dispatch, getState}) => {
         await dispatch(deleteTodoList(todo));
-        apiTodo(todo, getState)
+        const todoList = selectTodoList(getState() as RootState);
+        apiTodo.saveAll(todoList)
     }
 );
 
@@ -27,15 +27,15 @@ export const toggleTodoThunk = createAsyncThunk(
     'todo/toggleTodo',
     async (todo: Todo, {dispatch, getState}) => {
         await dispatch(toggleComplete(todo));
-        apiTodo(todo, getState)
+        const todoList = selectTodoList(getState() as RootState);
+        apiTodo.saveAll(todoList)
     }
 );
 
 export const initTodoListThunk = createAsyncThunk(
     'todo/initTodo',
     async (_, {dispatch}) => {
-        const data = localStorage.getItem('todos');
-        const todoList: Todo[] = data ? JSON.parse(data) : []
+        const todoList = apiTodo.getAll()
         await dispatch(setTodoList(todoList));
     }
 );
