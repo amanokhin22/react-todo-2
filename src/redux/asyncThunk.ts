@@ -2,6 +2,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {addNewTodo, deleteTodoList, setTodoList, Todo, toggleComplete} from "./sliceTodo";
 import {selectTodoList} from "./selectors";
 import {RootState} from "./store";
+import {apiTodo} from "../api/apiTodo";
 
 
 export const createTodoThunk = createAsyncThunk(
@@ -18,9 +19,7 @@ export const deleteTodoThunk = createAsyncThunk(
     'todo/deleteTodo',
     async (todo: Todo, {dispatch, getState}) => {
         await dispatch(deleteTodoList(todo));
-        const todoList = selectTodoList(getState() as RootState);
-        const json = JSON.stringify(todoList);
-        localStorage.setItem('todos', json);
+        apiTodo(todo, getState)
     }
 );
 
@@ -28,9 +27,7 @@ export const toggleTodoThunk = createAsyncThunk(
     'todo/toggleTodo',
     async (todo: Todo, {dispatch, getState}) => {
         await dispatch(toggleComplete(todo));
-        const todoList = selectTodoList(getState() as RootState);
-        const json = JSON.stringify(todoList);
-        localStorage.setItem('todos', json);
+        apiTodo(todo, getState)
     }
 );
 
